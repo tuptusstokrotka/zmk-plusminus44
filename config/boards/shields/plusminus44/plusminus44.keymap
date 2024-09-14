@@ -1,0 +1,80 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        tri_layer {
+            if-layers = <1 2>;
+            then-layer = <3>;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        caps_lock {
+            bindings = <&kp CAPSLOCK>;
+            key-positions = <12 13>;
+        };
+
+        git_paste {
+            bindings = <&kp LS(INS)>;
+            key-positions = <36 28>;
+        };
+
+        git_copy {
+            bindings = <&kp LC(INS)>;
+            key-positions = <36 27>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+&kp ESC    &kp Q     &kp W     &kp E  &kp R        &kp T  &kp Y        &kp U  &kp I      &kp O               &kp P      &kp BSPC
+&kp TAB    &kp A     &kp S     &kp D  &kp F        &kp G  &kp H        &kp J  &kp K      &kp L               &kp SEMI   &kp ENTER
+&kp LSHFT  &kp Z     &kp X     &kp C  &kp V        &kp B  &kp N        &kp M  &kp COMMA  &kp DOT             &kp FSLH   &mt RIGHT_SHIFT BACKSLASH
+&kp LCTRL  &kp LGUI  &kp LALT  &none  &lt 1 SPACE  &none  &lt 2 SPACE  &none  &kp RALT   &kp K_CONTEXT_MENU  &kp RCTRL  &kp C_PP
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        left {
+            bindings = <
+&kp GRAVE  &kp NUMBER_1  &kp N2     &kp NUMBER_3  &kp NUMBER_4  &kp N5       &kp N6     &kp N7            &kp N8             &kp N9                &kp N0                 &kp EQUAL
+&trans     &kp EXCL      &kp AT     &kp HASH      &kp DOLLAR    &kp PERCENT  &kp CARET  &kp AMPERSAND     &kp ASTERISK       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp SINGLE_QUOTE
+&trans     &kp PLUS      &kp MINUS  &kp ASTERISK  &kp SLASH     &trans       &trans     &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp UNDERSCORE
+&trans     &trans        &trans     &none         &trans        &none        &trans     &none             &trans             &trans                &trans                 &kp C_PREV
+            >;
+
+            sensor-bindings = <&inc_dec_kp LS(LA(PG_UP)) LS(LA(PG_DN))>;
+        };
+
+        right {
+            bindings = <
+&kp F1  &kp F2    &kp F3   &kp F4     &kp F5     &kp F6  &kp F7  &kp F8    &kp F9    &kp F10       &kp F11    &kp F12
+&trans  &kp HOME  &kp END  &kp PG_UP  &kp PG_DN  &trans  &trans  &kp LEFT  &kp DOWN  &kp UP_ARROW  &kp RIGHT  &trans
+&trans  &trans    &trans   &trans     &trans     &trans  &trans  &trans    &trans    &trans        &trans     &trans
+&trans  &trans    &trans   &none      &trans     &none   &trans  &none     &trans    &trans        &trans     &kp C_NEXT
+            >;
+
+            sensor-bindings = <&inc_dec_kp LA(PG_UP) LA(PG_DN)>;
+        };
+
+        both {
+            bindings = <
+&sys_reset  &bootloader  &bt BT_CLR  &trans  &kp LC(LG(LEFT))  &kp LS(LG(LEFT))  &kp LS(LG(RIGHT))  &kp LC(LG(RIGHT))  &trans  &trans  &trans  &kp LA(END)
+&trans      &trans       &bt BT_PRV  &trans  &kp LG(LEFT)      &kp LG(DOWN)      &kp LG(UP)         &kp LG(RIGHT)      &trans  &trans  &trans  &trans
+&trans      &trans       &bt BT_NXT  &trans  &trans            &trans            &trans             &trans             &trans  &trans  &trans  &trans
+&trans      &trans       &trans      &trans  &trans            &trans            &trans             &trans             &trans  &trans  &trans  &ext_power EP_ON
+            >;
+        };
+    };
+};
